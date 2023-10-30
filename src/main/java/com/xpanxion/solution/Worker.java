@@ -12,6 +12,7 @@ import com.xpanxion.java.assignments.DataAccess;
 import com.xpanxion.java.assignments.model.Cat;
 import com.xpanxion.java.assignments.model.Department;
 import com.xpanxion.java.assignments.model.Person;
+import com.xpanxion.java.assignments.model.PersonCat;
 import com.xpanxion.java.assignments.model.Product;
 import static com.xpanxion.java.assignments.DataAccess.getProducts;
 import static com.xpanxion.java.assignments.DataAccess.getWords;
@@ -50,18 +51,18 @@ public class Worker {
     }
 
     public void ex5() {
-        List<Person>peopleList = DataAccess.getPeople().stream()
-        .map(f -> new Person(f.getId(), f.getFirstName(), f.getLastName(), f.getAge(), f.getSsn().substring(7)))
-        .collect(Collectors.toList());
+        List<Person> peopleList = DataAccess.getPeople().stream()
+                .map(f -> new Person(f.getId(), f.getFirstName(), f.getLastName(), f.getAge(), f.getSsn().substring(7)))
+                .collect(Collectors.toList());
 
         System.out.println(peopleList.stream().filter(p -> p.getId() <= 3)
                 .collect(Collectors.toList()));
     }
 
     public void ex6() {
-        List<Cat>catList = DataAccess.getCats().stream()
-        .map(f -> new Cat(f.getId(), f.getName(), f.getAge(), f.getColor()))
-        .collect(Collectors.toList());
+        List<Cat> catList = DataAccess.getCats().stream()
+                .map(f -> new Cat(f.getId(), f.getName(), f.getAge(), f.getColor()))
+                .collect(Collectors.toList());
 
         catList.sort(Comparator.comparing(Cat::getName));
 
@@ -95,17 +96,13 @@ public class Worker {
     }
 
     public void ex10() {
-        List<Cat>catList = DataAccess.getCats().stream()
-        .map(f -> new Cat(f.getId(), f.getName(), f.getAge(), f.getColor()))
-        .collect(Collectors.toList());
-        List<Person>peopleList = DataAccess.getPeople().stream()
-        .map(f -> new Person(f.getId(), f.getFirstName(), f.getLastName(), f.getAge(), f.getSsn().substring(7)))
-        .collect(Collectors.toList());
-
-        
-
-        System.out.println(peopleList.stream().filter(p -> p.getId() <= 3)
-                .collect(Collectors.toList()));
+        var cats = DataAccess.getCats();
+        DataAccess.getPeople()
+                .stream()
+                .map(p -> new PersonCat(p.getId(), p.getFirstName(),
+                        cats.stream()
+                                .filter(c -> p.getId() == c.getId())
+                                .collect(Collectors.toList())))
+                .forEach(System.out::print);
     }
 }
-
