@@ -30,15 +30,14 @@ public class Product {
         this.sku = sku;
     }
 
-   public Product(int id, int departmentId, String departName, String name, float price, String sku) {
-       this.id = id;
-       this.departmentId = departmentId;
-       this.departmentName =departName;
-       this.name = name;
-       this.price = price;
-       this.sku = sku;
+    public Product(int id, int departmentId, String departName, String name, float price, String sku) {
+        this.id = id;
+        this.departmentId = departmentId;
+        this.departmentName = departName;
+        this.name = name;
+        this.price = price;
+        this.sku = sku;
     }
-
 
     //
     // Accessors
@@ -98,10 +97,14 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Product)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Product))
+            return false;
         Product product = (Product) o;
-        return getId() == product.getId() && getDepartmentId() == product.getDepartmentId() && Float.compare(product.getPrice(), getPrice()) == 0 && getName().equals(product.getName()) && getSku().equals(product.getSku());
+        return getId() == product.getId() && getDepartmentId() == product.getDepartmentId()
+                && Float.compare(product.getPrice(), getPrice()) == 0 && getName().equals(product.getName())
+                && getSku().equals(product.getSku());
     }
 
     @Override

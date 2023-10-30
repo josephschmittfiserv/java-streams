@@ -56,5 +56,9 @@ public class DataAccess {
                 return "this is a this is a test to see if this works";
         }
 
+        public Object getAllDepartments(DataAccess data) {
+                return null;
+        }
+
 
 }
